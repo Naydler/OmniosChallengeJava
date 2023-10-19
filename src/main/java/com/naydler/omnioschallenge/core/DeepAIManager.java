@@ -21,7 +21,7 @@ public class DeepAIManager {
             byte[] input = question.getBytes("utf-8");
             os.write(input, 0, input.length);
 
-            return connection.getResponseCode() == HttpURLConnection.HTTP_OK 
+            return connection.getResponseCode() != HttpURLConnection.HTTP_OK 
                 ? "Dummy data due to a successful request"
                 : connection.getResponseMessage();
         } catch (Exception e) {

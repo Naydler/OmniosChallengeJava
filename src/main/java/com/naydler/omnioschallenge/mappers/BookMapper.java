@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.naydler.omnioschallenge.core.TextTranslator;
+import com.naydler.omnioschallenge.core.CurrencyConverter;
 import com.naydler.omnioschallenge.core.DeepAIManager;
 import com.naydler.omnioschallenge.dtos.BookDto;
 import com.naydler.omnioschallenge.entities.BookEntity;
@@ -21,12 +22,16 @@ public class BookMapper {
     @Autowired
     private TextTranslator textTranslator;
 
+    @Autowired
+    private CurrencyConverter currencyConverter;
+
     public BookDto[] map(List<BookEntity> scrappedBooks) {
         return scrappedBooks.stream().map(scrappedBook -> {
             // TODO Obtain and transform data
             var id = CUID.randomCUID1();
             var text = deepAIManager.getText(scrappedBook.getTitle());
             var translation =  textTranslator.getTranslation(text);
+            var newPrice = currencyConverter.getConversion(scrappedBook.getPrice());
             return new BookDto();
         }).toArray(BookDto[]::new);
     }
