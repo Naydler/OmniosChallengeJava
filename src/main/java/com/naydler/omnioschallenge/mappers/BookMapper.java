@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.naydler.omnioschallenge.core.TextTranslator;
 import com.naydler.omnioschallenge.core.DeepAIManager;
 import com.naydler.omnioschallenge.dtos.BookDto;
 import com.naydler.omnioschallenge.entities.BookEntity;
@@ -17,11 +18,15 @@ public class BookMapper {
     @Autowired
     private DeepAIManager deepAIManager;
 
+    @Autowired
+    private TextTranslator textTranslator;
+
     public BookDto[] map(List<BookEntity> scrappedBooks) {
         return scrappedBooks.stream().map(scrappedBook -> {
             // TODO Obtain and transform data
             var id = CUID.randomCUID1();
             var text = deepAIManager.getText(scrappedBook.getTitle());
+            var translation =  textTranslator.getTranslation(text);
             return new BookDto();
         }).toArray(BookDto[]::new);
     }
