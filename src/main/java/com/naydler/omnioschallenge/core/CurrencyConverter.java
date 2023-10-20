@@ -1,23 +1,18 @@
 package com.naydler.omnioschallenge.core;
 
-import javax.money.Monetary;
-import javax.money.MonetaryAmount;
-import javax.money.convert.CurrencyConversion;
-import javax.money.convert.MonetaryConversions;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import org.springframework.stereotype.Component;
 
-@Component
+@Component  
 public class CurrencyConverter {
+    private static final BigDecimal POUND_RATE_TO_EURO = new BigDecimal(1.14);
     // get price
-    public String getConversion(String price) {
+    public BigDecimal getConversion(String price) {
         String priceContainer = price.replace("£", "").trim();
-        MonetaryAmount value = Monetary.getDefaultAmountFactory().setCurrency("GBP")
-                .setNumber(Double.parseDouble(priceContainer)).create();
-
-        CurrencyConversion conversionEUR = MonetaryConversions.getConversion("EUR");
-        MonetaryAmount convertedAmountUSDtoEUR = value.with(conversionEUR);
-            
-        return convertedAmountUSDtoEUR.toString();
+        var value = new BigDecimal(priceContainer);
+        return (value.multiply(POUND_RATE_TO_EURO).setScale(2, RoundingMode.HALF_DOWN));
     }
     // remove the currency symbol
 

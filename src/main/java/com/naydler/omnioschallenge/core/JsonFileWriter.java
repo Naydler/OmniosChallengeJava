@@ -5,7 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Component;
+@Component
 public class JsonFileWriter {
     @Autowired
     private JsonConverter jsonConverter;
