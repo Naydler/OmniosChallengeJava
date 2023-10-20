@@ -32,7 +32,7 @@ public class BookMapper {
             var text = deepAIManager.getText(scrappedBook.getTitle());
             var translation =  textTranslator.getTranslation(text);
             var newPrice = currencyConverter.getConversion(scrappedBook.getPrice());
-            return new BookDto();
-        }).toArray(BookDto[]::new);
+            return new BookDto(id, text,translation, newPrice, scrappedBook.getTitle(),scrappedBook.getRating(),scrappedBook.getImageUrl());
+        }).toArray(BookDto[]::new);     
     }
 }

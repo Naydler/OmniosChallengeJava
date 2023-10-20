@@ -8,21 +8,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CurrencyConverter {
-    //get price
+    // get price
     public String getConversion(String price) {
         String priceContainer = price.replace("£", "").trim();
-    
-    MonetaryAmount value = Monetary.getDefaultAmountFactory().setCurrency("GBP")
-        .setNumber(Double.parseDouble(priceContainer)).create();
+        MonetaryAmount value = Monetary.getDefaultAmountFactory().setCurrency("GBP")
+                .setNumber(Double.parseDouble(priceContainer)).create();
 
-    CurrencyConversion conversionEUR = MonetaryConversions.getConversion("EUR");
-
-    MonetaryAmount convertedAmountUSDtoEUR = value.with(conversionEUR);
-
-    return convertedAmountUSDtoEUR.toString();
-
+        CurrencyConversion conversionEUR = MonetaryConversions.getConversion("EUR");
+        MonetaryAmount convertedAmountUSDtoEUR = value.with(conversionEUR);
+            
+        return convertedAmountUSDtoEUR.toString();
     }
-    //remove the currency symbol
-    
-    
+    // remove the currency symbol
+
 }

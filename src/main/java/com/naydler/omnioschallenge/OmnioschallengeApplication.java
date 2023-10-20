@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.naydler.omnioschallenge.core.JsonFileWriter;
 import com.naydler.omnioschallenge.core.WebScrapper;
 import com.naydler.omnioschallenge.mappers.BookMapper;
 
@@ -17,6 +18,8 @@ public class OmnioschallengeApplication {
 		var scrappedBooks = webScrapper.execute();
 		var bookMapper = context.getBean(BookMapper.class);
 		var bookDtos = bookMapper.map(scrappedBooks);
+		var jsonFileWriter = context.getBean(JsonFileWriter.class);
+		jsonFileWriter.write(bookDtos, "books.json");
 	}
 
 }
