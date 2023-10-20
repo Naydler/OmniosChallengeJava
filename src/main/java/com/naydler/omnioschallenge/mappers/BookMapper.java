@@ -32,7 +32,7 @@ public class BookMapper {
             var id = CUID.randomCUID1();
             var text = deepAIManager.getText(scrappedBook.getTitle());
             var translation = textTranslator.getTranslation(text);
-            var newPrice = currencyConverter.getConversion(scrappedBook.getPrice());
+            var newPrice = Double.parseDouble(currencyConverter.getConversion(scrappedBook.getPrice()));
             System.out.println(newPrice);
             return new BookDto(id.toString(), text,translation.getSpanish(),translation.getGerman(), newPrice, scrappedBook.getTitle(),scrappedBook.getRating(),scrappedBook.getImageUrl());
         }).toArray(BookDto[]::new);     

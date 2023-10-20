@@ -1,18 +1,15 @@
 package com.naydler.omnioschallenge.core;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import org.springframework.stereotype.Component;
 
 @Component  
 public class CurrencyConverter {
-    private static final BigDecimal POUND_RATE_TO_EURO = new BigDecimal(1.14);
+    private static final Double POUND_RATE_TO_EURO = 1.14D;
     // get price
-    public BigDecimal getConversion(String price) {
+    public String getConversion(String price) {
         String priceContainer = price.replace("£", "").trim();
-        var value = new BigDecimal(priceContainer);
-        return (value.multiply(POUND_RATE_TO_EURO).setScale(2, RoundingMode.HALF_DOWN));
+        var value = Double.parseDouble(priceContainer);
+        return String.format("%.2f", value * POUND_RATE_TO_EURO);
     }
     // remove the currency symbol
 

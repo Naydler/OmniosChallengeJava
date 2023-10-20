@@ -1,7 +1,5 @@
 package com.naydler.omnioschallenge.dtos;
 
-import java.math.BigDecimal;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,7 +10,7 @@ public class BookDto {
     private String text;
     private String spanishText;
     private String germanText;
-    private BigDecimal price;
+    private Double price;
     private String title;
     private String rating;
     private String imageUrl;
